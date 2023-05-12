@@ -9,6 +9,8 @@
     "eslint": "^8.40.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-notifications": "^1.7.4",
+    "react-notifications-component": "^4.0.1",
     "react-scripts": "5.0.1",
     "sass": "^1.62.1",
     "scss": "^0.2.4",
