@@ -1,21 +1,27 @@
-.task {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1%;
+@import './App.scss';
 
+.task {
+    @include yo-flex();
+    align-items: center;
 
     .icon {
         width: 20px;
         height: 20px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+        @include yo-flex(0%);
+        border: none;
+
+        &:hover{
+            background-color: chartreuse;
+        }
 
         img {
             width: 20px;
             height: 20px;
         }
     }
+
+    .crossed{
+        text-decoration: line-through;
+    }
 }
+

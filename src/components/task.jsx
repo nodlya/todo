@@ -3,11 +3,17 @@ import { useRef } from "react";
 import "../styles/task.scss"
 
 const Task = (props) => {
+    const textRef = useRef();
+    const inputRef = useRef(null);
+
     const [toEdit, setToEdit] = useState(false);
     const [text, setText] = useState(props.info);
     const [startText, setStartText] = useState(props.startText);
+    const [isChecked, setIsChecked] = useState(false);
 
-    const inputRef = useRef(null);
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked)
+    };
 
     const handleEditClick = () => {
         setToEdit(true);
@@ -27,6 +33,17 @@ const Task = (props) => {
         }
     }, [toEdit]);
 
+    useEffect(() => {
+        if (textRef.current) {
+            if (isChecked) {
+                textRef.current.style.textDecoration = "line-through";
+            }
+            else {
+                textRef.current.style.textDecoration = "none";
+            }
+        }
+    }, [isChecked]);
+
     const handleInputChange = (event) => {
         setText(event.target.value);
     }
@@ -42,12 +59,7 @@ const Task = (props) => {
         setToEdit(false);
     }
 
-    // if (toRemove) {
-    //     return (<></>);
-    // }
-
     const handleDelete = () => {
-        //toRemove(true)
         props.delete(props.index)
     }
 
@@ -55,7 +67,7 @@ const Task = (props) => {
 
         return (
             <div className="task" key={props.index}>
-                <input type="checkbox" />
+                <input className="done" type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
                 <input
                     className="task-text"
                     type="text"
@@ -75,8 +87,8 @@ const Task = (props) => {
     }
 
     return (<div className="task" key={props.index}>
-        <input type="checkbox" />
-        <p>{props.info}</p>
+        <input type="checkbox" onClick={handleCheckboxChange}/>
+        <span ref={textRef}>{props.info}</span>
         <button className="icon">
             <img src={"/images/edit.png"} alt='edit' onClick={handleEditClick} />
         </button>
